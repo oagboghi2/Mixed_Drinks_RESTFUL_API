@@ -52,9 +52,12 @@ function getIngredientsAdd(req, res, next){
 }
 
 function getCocktailsAdd(req, res, next){
-  console.log("test")
-  db.none('INSERT INTO cocktails(cocktails_name)'+'VALUES (${ingredient_id})', req.body)
-  .then(function(data){
+let {ingred,cocktails_name} = req.body
+  ingred = JSON.parse(ingred);
+  console.log("test", req.body);
+  // console.log(Array.isArray(ingred))
+  //res.json({})
+  db.none('INSERT INTO cocktails(cocktails_name, ingredient_ids) VALUES ($1, $2)', [cocktails_name, ingred])
     res.status(200).json({
       status: 'success',
       data: data,
