@@ -3,22 +3,26 @@ DROP DATABASE IF EXISTS drinks;
 
 \c drinks
 
+          CREATE TABLE cocktails (
+                    ID SERIAL PRIMARY KEY,
+        cocktails_name VARCHAR
+);
 
-
-           CREATE TABLE ingredients(
-          ingredient_id SERIAL PRIMARY KEY,
+           CREATE TABLE drinks(
+                     ID SERIAL PRIMARY KEY,
+          ingredient_id INTEGER,
         ingredient_name VARCHAR
 );
 
-          CREATE TABLE cocktails (
-                    ID SERIAL PRIMARY KEY,
-        cocktails_name VARCHAR,
-           cocktail_id INTEGER REFERENCES ingredients(ingredient_id),
-        ingredient_ids integer ARRAY[3]
-
+           CREATE TABLE orders(
+                     id INTEGER,
+           cocktails_id VARCHAR REFERENCES cocktails(cocktails_name),
+               drinks_id INTEGER REFERENCES drinks(ID)
 );
 
 
-INSERT INTO ingredients(ingredient_name) VALUES ('tequila');
-INSERT INTO ingredients(ingredient_name) VALUES ('lemon juice');
-INSERT INTO ingredients(ingredient_name) VALUES ('triple sec');
+INSERT INTO drinks(ingredient_id, ingredient_name) VALUES (1,'tequila');
+INSERT INTO drinks(ingredient_id, ingredient_name) VALUES (2,'lemon juice');
+INSERT INTO drinks(ingredient_id, ingredient_name) VALUES (3,'triple sec');
+
+SELECT * FROM cocktails INNER JOIN drink;
