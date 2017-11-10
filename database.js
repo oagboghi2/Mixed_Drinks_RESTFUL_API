@@ -52,14 +52,14 @@ function getIngredientsAdd(req, res, next){
 }
 
 function getCocktailsAdd(req, res, next){
-  let {ingred} = req.body
+  let {ingred,cocktails_name} = req.body
   ingred = JSON.parse(ingred);
   console.log("test", req.body);
-  console.log(Array.isArray(ingred))
+  // console.log(Array.isArray(ingred))
   //res.json({})
-  db.none('INSERT INTO cocktails(cocktails_name, ingredient_ids) VALUES (${cocktails_name}, ${ingredient_ids})', [req.body, ingred])
+  db.none('INSERT INTO cocktails(cocktails_name, ingredient_ids) VALUES ($1, $2)', [cocktails_name, ingred])
   .then(function(data){
-    console.log("test 2 " + req.body);
+    console.log("test 2 " + data);
     res.status(200).json({
       status: 'success',
       data: data,
