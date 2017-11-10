@@ -3,10 +3,7 @@ DROP DATABASE IF EXISTS drinks;
 
 \c drinks
 
-          CREATE TABLE cocktails (
-                    ID SERIAL PRIMARY KEY,
-        cocktails_name VARCHAR
-);
+
 
            CREATE TABLE drinks(
                      ID SERIAL PRIMARY KEY,
@@ -14,11 +11,18 @@ DROP DATABASE IF EXISTS drinks;
         ingredient_name VARCHAR
 );
 
-           CREATE TABLE orders(
-                     id INTEGER,
-           cocktails_id VARCHAR REFERENCES cocktails(cocktails_name),
-               drinks_id INTEGER REFERENCES drinks(ID)
+          CREATE TABLE cocktails (
+                    ID SERIAL PRIMARY KEY,
+        cocktails_name VARCHAR,
+         ingredient_id INTEGER REFERENCES drinks(id)
+
 );
+
+--            CREATE TABLE orders(
+--                      id INTEGER,
+--            cocktails_id VARCHAR REFERENCES cocktails(cocktails_name),
+--                drinks_id INTEGER REFERENCES drinks(ID)
+-- );
 
 
 INSERT INTO drinks(ingredient_id, ingredient_name) VALUES (1,'tequila');
