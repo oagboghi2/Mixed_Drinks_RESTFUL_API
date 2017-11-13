@@ -11,7 +11,7 @@ var options = {
 
 function getIngredientsList(req, res, next){
   console.log("test");
-  db.any('SELECT * FROM drinks')
+  db.any('SELECT * FROM ingredients')
   .then(function(data){
     res.status(200).json({
       status: 'success',
@@ -37,8 +37,22 @@ function getCocktailsList(req, res, next){
   });
 }
 
+function getCocktail(req, res, next){
+  var id = parseInt(req.params.id);
+  db.any('SELECT cocktails.cocktails_name, cocktails.ingredient_ids FROM cocktails WHERE id = $1', id)
+  .then(function(data){
+    res.status(200).json({
+      status: 'success',
+      data: data
+    });
+  })
+  .catch(function(err){
+    return next(err);
+  });
+}
+
 function getIngredientsAdd(req, res, next){
-  db.none('INSERT INTO drinks(ingredient_id,ingredient_name)'+'VALUES (${ingredient_id}, ${ingredient_name})', req.body)
+  db.none('INSERT INTO ingredients(ingredient_id,ingredient_name)'+'VALUES (${ingredient_id}, ${ingredient_name})', req.body)
   .then(function(data){
     res.status(200).json({
       status: 'success',
@@ -57,6 +71,7 @@ function getCocktailsAdd(req, res, next){
   console.log("test", req.body);
   // console.log(Array.isArray(ingred))
   //res.json({})
+  res.setHeader("Content-Type", "application/json");
   db.none('INSERT INTO cocktails(cocktails_name, ingredient_ids) VALUES ($1, $2)', [cocktails_name, ingred])
   .then(function(data){
     console.log("test 2 " + data);
@@ -76,5 +91,6 @@ module.exports = {
   getIngredientsList: getIngredientsList,
   getCocktailsList: getCocktailsList,
   getIngredientsAdd: getIngredientsAdd,
-  getCocktailsAdd: getCocktailsAdd
+  getCocktailsAdd: getCocktailsAdd,
+  getCocktail: getCocktail
 };
