@@ -22,3 +22,4 @@ DROP DATABASE IF EXISTS drinks;
 INSERT INTO ingredients(ingredient_name) VALUES ('tequila');
 INSERT INTO ingredients(ingredient_name) VALUES ('lemon juice');
 INSERT INTO ingredients(ingredient_name) VALUES ('triple sec');
+
